@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -14,6 +15,7 @@ public class TestReadFile {
 	public String ToFile = "data/output_dump.txt";
 	// HashMap: <departmentName(CMPT), HashMap<courseName(CMPT 213), Course(CMPT 213)>>
 	private HashMap<String, HashMap<String, Course>> departmentList;
+	private List<List<Course>> sortedDepartmentList;
 	
 	/**
 	 * @param args
@@ -71,21 +73,33 @@ public class TestReadFile {
 	}
 
 	private void printDepartmentList() {
+		System.out.println("printDepartmentList()");
 		File dumpFile = new File(this.ToFile);
 		try {
 			PrintWriter printWriter = new PrintWriter(dumpFile);
 			
-			for (String department : this.departmentList.keySet()) {
-				List<Course> sortedCourses = new ArrayList<Course>();
-				HashMap<String, Course> courses = this.departmentList.get(department);
-				for (Course course : courses.values()) {
-					sortedCourses.add(course);
+			this.sortDepartmentAndCourse();
+			for (List<Course> department : this.sortedDepartmentList) {
+				for (Course course : department) {
+					printWriter.println(course);
+//					System.out.println(course);
 				}
 			}
+			
 			printWriter.close();
 		}
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void sortDepartmentAndCourse() {
+		this.sortedDepartmentList = new ArrayList<List<Course>>();
+		for (String department : this.departmentList.keySet()) {
+			HashMap<String, Course> courses = this.departmentList.get(department);
+			List<Course> sortedCourses = new ArrayList<Course>(courses.values());
+			Collections.sort(sortedCourses, new SortedCourseByName());
+			this.sortedDepartmentList.add(sortedCourses);
 		}
 	}
 
