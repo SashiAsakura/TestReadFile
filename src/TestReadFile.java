@@ -13,8 +13,8 @@ public class TestReadFile {
 	public String sourceFile = "data/course_data_2014_small.csv.txt";
 	public String ToFile = "data/output_dump.txt";
 	// HashMap: <departmentName(CMPT), HashMap<courseName(CMPT 213), Course(CMPT 213)>>
-	private HashMap<String, List<Course>> departmentList;
-
+	private HashMap<String, HashMap<String, Course>> departmentList;
+	
 	/**
 	 * @param args
 	 */
@@ -27,7 +27,7 @@ public class TestReadFile {
 	
 	private void dumpModel() {
 		File sourceFile = new File(this.sourceFile);
-		this.departmentList = new HashMap<String, List<Course>>();
+		this.departmentList = new HashMap<String, HashMap<String, Course>>();
 		
 		try {
 			Scanner scanner = new Scanner(sourceFile);
@@ -46,12 +46,12 @@ public class TestReadFile {
 				// Create department "CMPT" in outer HashMap of deparments
 				String departmentName = courseOffering.getSubject();
 				if (!this.departmentList.containsKey(departmentName)) {
-					this.departmentList.put(departmentName, new ArrayList<Course>());
+					this.departmentList.put(departmentName, new HashMap<String, Course>());
 				}
 				
 				// Create course "CMPT 213" in inner HashMap of courses
 				String courseName = courseOffering.getCourseName();
-				if (!this.departmentList.get(departmentName).contains(courseName)) {
+				if (!this.departmentList.get(departmentName).containsKey(courseName)) {
 					Course course = new Course(courseName, courseOffering.getSubject(), courseOffering.getCatalogNum());
 					this.departmentList.get(departmentName).put(courseName, course);
 				}
@@ -74,12 +74,12 @@ public class TestReadFile {
 		File dumpFile = new File(this.ToFile);
 		try {
 			PrintWriter printWriter = new PrintWriter(dumpFile);
-		
+			
 			for (String department : this.departmentList.keySet()) {
-				List<Course> courses = this.departmentList.get(department);
-				for (Course course : courses) {
-					System.out.println(courses.get(course));
-					printWriter.println(courses.get(course));
+				List<Course> sortedCourses = new ArrayList<Course>();
+				HashMap<String, Course> courses = this.departmentList.get(department);
+				for (Course course : courses.values()) {
+					sortedCourses.add(course);
 				}
 			}
 			printWriter.close();
