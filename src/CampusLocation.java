@@ -9,13 +9,13 @@ public enum CampusLocation {
 	
 	public static CampusLocation getCampusLocation(String stringCampusLocation) {
 		CampusLocation campusLocation;
-		if (stringCampusLocation.equals("BURNABY")) {
+		if (stringCampusLocation.equalsIgnoreCase("BURNABY")) {
 			campusLocation = CampusLocation.Burnaby;
 		}
-		else if (stringCampusLocation.equals("SURREY")) {
+		else if (stringCampusLocation.equalsIgnoreCase("SURREY")) {
 			campusLocation = CampusLocation.Surrey;
 		}
-		else if (stringCampusLocation.equals("VAN")) {
+		else if (stringCampusLocation.equalsIgnoreCase("VAN")) {
 			campusLocation = CampusLocation.Vancouver;
 		}
 		else {

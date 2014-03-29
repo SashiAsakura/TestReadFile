@@ -11,11 +11,12 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 
 
 public class TestReadFile {
-	public String sourceFile = "data/course_data_2014_small.csv.txt";
+	public String sourceFile = "data/course_data_2014.csv.txt";
 	public String ToFile = "data/output_dump.txt";
 	// HashMap: <departmentName(CMPT), HashMap<courseName(CMPT 213), Course(CMPT 213)>>
 	private HashMap<String, HashMap<String, Course>> departmentList;
-	private List<List<Course>> sortedDepartmentList;
+//	private List<List<Course>> sortedDepartmentList;
+	private HashMap<String, List<Course>> sortedDepartmentHM;
 	
 	/**
 	 * @param args
@@ -79,8 +80,8 @@ public class TestReadFile {
 			PrintWriter printWriter = new PrintWriter(dumpFile);
 			
 			this.sortDepartmentAndCourse();
-			for (List<Course> department : this.sortedDepartmentList) {
-				for (Course course : department) {
+			for (String department : this.sortedDepartmentHM.keySet()) {
+				for (Course course : this.sortedDepartmentHM.get(department)) {
 					printWriter.println(course);
 //					System.out.println(course);
 				}
@@ -94,12 +95,12 @@ public class TestReadFile {
 	}
 
 	private void sortDepartmentAndCourse() {
-		this.sortedDepartmentList = new ArrayList<List<Course>>();
+		this.sortedDepartmentHM = new HashMap<String, List<Course>>();
 		for (String department : this.departmentList.keySet()) {
 			HashMap<String, Course> courses = this.departmentList.get(department);
 			List<Course> sortedCourses = new ArrayList<Course>(courses.values());
 			Collections.sort(sortedCourses, new SortedCourseByName());
-			this.sortedDepartmentList.add(sortedCourses);
+			this.sortedDepartmentHM.put(department, sortedCourses);
 		}
 	}
 

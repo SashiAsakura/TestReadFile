@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -11,9 +12,10 @@ public class CourseOffering implements Comparator<CourseOffering>{
 	private String catalogNumber;
 	private CampusLocation campusLocation;
 	private int enrollmentCapacity;
-	private int enrolledSize;
+	private int enrollmentSize;
 	private SectionType sectionType;
 	private List<String> instructors;
+	private List<Section> sections;
 
 	/*
 	 * Constructor
@@ -25,11 +27,14 @@ public class CourseOffering implements Comparator<CourseOffering>{
 		this.subject = subject;
 		this.catalogNumber = catalogNum;
 		this.campusLocation = CampusLocation.getCampusLocation(campusLocation);
-		this.enrolledSize = enrollmentSize;
+		this.enrollmentSize = enrollmentSize;
 		this.sectionType = SectionType.getSectionType(sectionType);
 		this.enrollmentCapacity = enrollmentCapacity;
 		this.instructors = instructors;
 		this.courseName = this.subject + " " + this.catalogNumber;
+		
+		this.sections = new ArrayList<Section>();
+		this.sections.add(new Section(this.sectionType, this.enrollmentCapacity, this.enrollmentSize));
 	}
 	
 	/*
@@ -48,7 +53,7 @@ public class CourseOffering implements Comparator<CourseOffering>{
 	}
 	
 	public int getEnrolledSize() {
-		return this.enrolledSize;
+		return this.enrollmentSize;
 	}
 	
 	public int getEnrollmentCapacity() {
@@ -71,32 +76,53 @@ public class CourseOffering implements Comparator<CourseOffering>{
 		return this.campusLocation;
 	}
 	
+	public SectionType getSectionType() {
+		return this.sectionType;
+	}
+	
 	public List<String> getInstructors() {
 		return this.instructors;
+	}
+	
+	public List<Section> getSections() {
+		return this.sections;
 	}
 	
 	/**
 	 * Public Method
 	 */
 	
-	public void addEnrolledSize(int num) {
-		this.enrolledSize += num;
-	}
-	
-	public void addEnrollmentCapacity(int num) {
-		this.enrollmentCapacity += num;
+	public void appendSection(Section section) {
+		if (this.getSections().contains(section)) {
+			Section currSection = this.getSections().get(this.getSections().indexOf(section));
+			currSection.addEnrolledSize(section.getEnrollmentSize());
+			currSection.addEnrollmentCapacity(section.getEnrollmentCapacity());
+		}
+		else {
+			this.getSections().add(section);
+		}
 	}
 	
 	@Override
 	public String toString() {
+		StringBuffer stringSections = new StringBuffer();
+		for (Section section : this.sections) {
+			stringSections.append(section);
+		}
 		return "\n\t\t " + this.semesterCode + " in " + this.campusLocation + " by " + this.instructors
-				+ "\n\t\t\t\t Type=" + this.sectionType + ", Enrollment=" + this.enrolledSize + "/" + this.enrollmentCapacity;
+				+ stringSections;
 	}
 
+	/*
+	 * Required method when checking if specific courseOffering exists 
+	 * in the list of CourseOfferings (1141, CMPT120, BURNABY).
+	 * Two courseOfferins are the same if semesterCode & campusLocation are the same
+	 */
 	@Override
 	public boolean equals(Object that) {
 		return this.getSemesterCode() == ((CourseOffering) that).getSemesterCode()
-				&& this.getCampusLocation() == ((CourseOffering) that).getCampusLocation();
+				&& this.getCampusLocation().equals(((CourseOffering) that).getCampusLocation());
+//				&& this.getSectionType().equals(((CourseOffering) that).getSectionType());
 	}
 	
 	@Override

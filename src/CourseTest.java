@@ -1,4 +1,5 @@
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
@@ -62,6 +63,81 @@ public class CourseTest extends TestCase {
 		Course course = new Course(courseName, subject, catalogNum);
 		
 		assertEquals(catalogNum, course.getCatalogNum());
+	}
+	
+	public void testIsUndergdrad() {
+		Course course1 = new Course("CMPT XXX", "CMPT", "XXX");
+		assertEquals(true, course1.getIsUndergrad());
+		
+		Course course2 = new Course("CMPT 1XX", "CMPT", "1XX");
+		assertEquals(true, course2.getIsUndergrad());
+		
+		Course course3 = new Course("CMPT XX1", "CMPT", "XX1");
+		assertEquals(true, course3.getIsUndergrad());
+		
+		Course course4 = new Course("CMPT 100", "CMPT", "100");
+		assertEquals(true, course4.getIsUndergrad());
+		
+		Course course5 = new Course("CMPT 225", "CMPT", "225");
+		assertEquals(true, course5.getIsUndergrad());
+		
+		Course course6 = new Course("CMPT 320W", "CMPT", "320W");
+		assertEquals(true, course6.getIsUndergrad());
+		
+		Course course7 = new Course("CMPT 499", "CMPT", "499");
+		assertEquals(true, course7.getIsUndergrad());
+		
+		Course course8 = new Course("CMPT 555", "CMPT", "555");
+		assertEquals(false, course8.getIsUndergrad());
+		
+		Course course9 = new Course("CMPT 6XX", "CMPT", "6XX");
+		assertEquals(false, course9.getIsUndergrad());
+		
+		Course course10 = new Course("CMPT 700", "CMPT", "700");
+		assertEquals(false, course10.getIsUndergrad());
+		
+		Course course11 = new Course("CMPT 899", "CMPT", "899");
+		assertEquals(false, course11.getIsUndergrad());
+	}
+	
+	public void testCourseOffering() {
+		CourseOffering co1 = new CourseOffering(1044, "MACM", "101", "Burnaby", 89, "LEC", 160, new ArrayList<String>(Arrays.asList("Frank Burton")));
+		CourseOffering co2 = new CourseOffering(1044, "MACM", "101", "Surrey", 18, "LEC", 72, new ArrayList<String>(Arrays.asList("Anthony Dixon", " Daniela Marinescu")));
+		Course course1 = new Course("MACM 101", "MACM", "101");
+		course1.appendCourseOffering(co1);
+		course1.appendCourseOffering(co2);
+		
+		List<CourseOffering> cos1 = new ArrayList<CourseOffering>();
+		cos1.add(co1);
+		cos1.add(co2);
+		System.out.println("expected: " + cos1 + ", \nactual: " + course1.getCourseOfferings());
+		assertEquals(cos1, course1.getCourseOfferings());
+		
+		
+		CourseOffering co3 = new CourseOffering(1044, "MACM", "101", "Burnaby", 89, "LEC", 160, new ArrayList<String>(Arrays.asList("Frank Burton")));
+		CourseOffering co4 = new CourseOffering(1044, "MACM", "101", "Burnaby", 18, "LEC", 72, new ArrayList<String>(Arrays.asList("Anthony Dixon", " Daniela Marinescu")));
+		Course course2 = new Course("MACM 101", "MACM", "101");
+		course2.appendCourseOffering(co3);
+		course2.appendCourseOffering(co4);
+		
+		List<CourseOffering> cos2 = new ArrayList<CourseOffering>();
+		cos2.add(new CourseOffering(1044, "MACM", "101", "Burnaby", 107, "LEC", 232, new ArrayList<String>(Arrays.asList("Frank Burton", "Anthony Dixon", " Daniela Marinescu"))));
+		System.out.println("expected: " + cos2 + ", \nactual: " + course2.getCourseOfferings());
+		assertEquals(cos2, course2.getCourseOfferings());
+		
+		
+		CourseOffering co5 = new CourseOffering(1044, "MACM", "101", "Burnaby", 89, "LEC", 160, new ArrayList<String>(Arrays.asList("Frank Burton")));
+		CourseOffering co6 = new CourseOffering(1044, "MACM", "101", "Burnaby", 18, "TUT", 72, new ArrayList<String>(Arrays.asList("Frank Burton")));
+		Course course3 = new Course("MACM 101", "MACM", "101");
+		course3.appendCourseOffering(co5);
+		course3.appendCourseOffering(co6);
+		
+		List<CourseOffering> cos3 = new ArrayList<CourseOffering>();
+		CourseOffering co7 = new CourseOffering(1044, "MACM", "101", "Burnaby", 89, "LEC", 160, new ArrayList<String>(Arrays.asList("Frank Burton")));
+		co7.getSections().add(new Section(SectionType.TUT, 72, 18));
+		cos3.add(co7);
+		System.out.println("expected: " + cos3 + ", \nactual: " + course3.getCourseOfferings());
+		assertEquals(cos3, course3.getCourseOfferings());
 	}
 	
 	public void testSort1() {

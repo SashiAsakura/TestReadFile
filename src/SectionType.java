@@ -4,16 +4,16 @@ public enum SectionType {
 
 	public static SectionType getSectionType(String stringSectionType) {
 		SectionType sectionType;
-		if (stringSectionType.equals("LEC")) {
+		if (stringSectionType.equalsIgnoreCase("LEC")) {
 			sectionType = SectionType.LEC;
 		}
-		else if (stringSectionType.equals("TUT")) {
+		else if (stringSectionType.equalsIgnoreCase("TUT")) {
 			sectionType = SectionType.TUT;
 		}
-		else if (stringSectionType.equals("SEC")) {
+		else if (stringSectionType.equalsIgnoreCase("SEC")) {
 			sectionType = SectionType.SEC;
 		}
-		else if (stringSectionType.equals("OPL")) {
+		else if (stringSectionType.equalsIgnoreCase("OPL")) {
 			sectionType = SectionType.OPL;
 		}
 		else {

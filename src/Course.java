@@ -30,11 +30,24 @@ public class Course {
 	 * Public Getter
 	 */
 	
+	
+	public String getCourseName() {
+		return this.courseName;
+	}
+	
 	public String getSubject() {
 		return this.subject;
 	}
 	public String getCatalogNum() {
 		return this.catalogNum;
+	}
+	
+	public boolean getIsUndergrad() {
+		return this.isUndergradCourse;
+	}
+	
+	public List<CourseOffering> getCourseOfferings() {
+		return this.courseOfferings;
 	}
 	
 	/*
@@ -46,8 +59,9 @@ public class Course {
 		}
 		if (this.courseOfferings.contains(courseOffering)) {
 			CourseOffering co = this.courseOfferings.get(this.courseOfferings.indexOf(courseOffering));
-			co.addEnrolledSize(courseOffering.getEnrolledSize());
-			co.addEnrollmentCapacity(courseOffering.getEnrollmentCapacity());
+			Section section = new Section(courseOffering.getSectionType(),
+					courseOffering.getEnrollmentCapacity(), courseOffering.getEnrolledSize());
+			co.appendSection(section);
 		}
 		else {
 			this.courseOfferings.add(courseOffering);
