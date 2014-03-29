@@ -1,3 +1,4 @@
+package cmpt213.asn4.model;
 
 import java.util.Arrays;
 import java.util.Collections;

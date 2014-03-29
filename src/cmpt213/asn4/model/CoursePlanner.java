@@ -1,3 +1,4 @@
+package cmpt213.asn4.model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
