@@ -121,6 +121,12 @@ public class CourseOffering implements Comparator<CourseOffering>{
 	 */
 	@Override
 	public boolean equals(Object that) {
+		if (that == null || this.getClass() != that.getClass()) {
+			return false;
+		}
+		else if (that == this) {
+			return true;
+		}
 		return this.getSemesterCode() == ((CourseOffering) that).getSemesterCode()
 				&& this.getCampusLocation().equals(((CourseOffering) that).getCampusLocation());
 //				&& this.getSectionType().equals(((CourseOffering) that).getSectionType());

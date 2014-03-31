@@ -84,8 +84,11 @@ public class Course {
 	 */
 	@Override
 	public boolean equals(Object that) {
-		if (that == null) {
+		if (that == null || this.getClass() != that.getClass()) {
 			return false;
+		}
+		else if (that == this) {
+			return true;
 		}
 		return this.getSubject().equals(((Course) that).getSubject())
 				&& this.getCatalogNum().equals(((Course) that).getCatalogNum());

@@ -23,11 +23,28 @@ public class CoursePlanner {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		CoursePlanner testReadFile = new CoursePlanner();
-		
-		testReadFile.dumpModel();
-		
+		CoursePlanner cp = new CoursePlanner();
 	}
+	
+	/*
+	 * Constructor
+	 */
+	
+	public CoursePlanner() {
+		this.dumpModel();
+	}
+	
+	/*
+	 * Public Getter
+	 */
+	
+	public HashMap<String, List<Course>> getSortedDepartmentHM() {
+		return this.sortedDepartmentHM;
+	}
+	
+	/*
+	 * Private Method
+	 */
 	
 	private void dumpModel() {
 		File sourceFile = new File(this.sourceFile);
