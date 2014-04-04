@@ -22,53 +22,53 @@ public abstract class ABCCoursePlanerPanel extends JPanel{
 	/*
 	 * Constructors
 	 */
-//	public ABCCoursePlanerPanel(Object model) {
-//		this.model = model;
-//		setLayout(new BorderLayout());
-//		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.BLACK, Color.GRAY));
-//	}
 	
 	public ABCCoursePlanerPanel(Object model, String title) {
 		this.model = model;
 		this.title = title;
 		setLayout(new BorderLayout());
-//		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.BLACK, Color.GRAY));
-		add(this.getTitleLabel(title), BorderLayout.NORTH);
-		add(this.setContentPanel("Content"), BorderLayout.CENTER);
 		
+		this.titlePanel = this.createTitleLabel(title);
+		this.contentPanel = this.createContentPanel();
+		add(this.titlePanel, BorderLayout.NORTH);
+		add(this.contentPanel, BorderLayout.CENTER);
 	}
 	
-	private Component setContentPanel(String string) {
-		JLabel label = new JLabel(title);
-		label.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.BLACK, Color.GRAY));
-		label.setBackground(Color.WHITE);
-		return label;
-	}
-
-	public Component getContentPanel(String string) {
-		return this.contentPanel;
-	}
-
-	private Component getTitleLabel(String title2) {
-		JLabel label = new JLabel(title);
-		label.setForeground(Color.BLUE);
-		return label;
-	}
-
 	/*
 	 * Public Getter
 	 */
+	
+	public Component getTitlePanel() {
+		return this.titlePanel;
+	}
+	
+	public Component getContentPanel() {
+		return this.contentPanel;
+	}
+	
 	public Object getModel() {
 		return this.model;
 	}
 	
-//	public Dimension getMaximumSize() {
-//		return this.maximumSize;
-//	}
-//	
-//	public Dimension getPreferredSize() {
-//		return this.preferredSize;
-//	}
+	
+	/*
+	 * Private Method
+	 */
+	
+	private Component createTitleLabel(String title2) {
+		JLabel label = new JLabel(title);
+		label.setForeground(Color.BLUE);
+		return label;
+	}
+	
+	private Component createContentPanel() {
+		JPanel panel = new JPanel();
+		panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.BLACK, Color.GRAY));
+//		panel.setBackground(Color.WHITE);
+		return panel;
+	}
+	
+
 	
 	/*
 	 * Public Method
@@ -77,5 +77,13 @@ public abstract class ABCCoursePlanerPanel extends JPanel{
 	public void fixHeight() {
 	}
 	
-	
+//	@Override
+//	public Dimension getMaximumSize() {
+//		return this.maximumSize;
+//	}
+
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(230, 130);
+	}
 }

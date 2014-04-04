@@ -43,8 +43,8 @@ public class CoursePlannerView {
 		jPanel.setLayout(new BorderLayout());
 		
 //		jPanel.add(this.createCourseListFilterPanel(), BorderLayout.NORTH);
-		jPanel.add(new CourseListFilter(this.coursePlanner), BorderLayout.NORTH);
-		jPanel.add(this.createCourseListPanel(), BorderLayout.CENTER);
+		jPanel.add(new CourseListFilterView(this.coursePlanner), BorderLayout.NORTH);
+		jPanel.add(new CourseListView(this.coursePlanner), BorderLayout.CENTER);
 		
 		return jPanel;
 	}
@@ -52,7 +52,7 @@ public class CoursePlannerView {
 	private Component createCenterPanel() {
 		JPanel jPanel = new JPanel();
 		jPanel.setLayout(new BorderLayout());
-		jPanel.add(this.createCourseOfferingBySemesterPanel(), BorderLayout.CENTER);
+		jPanel.add(new CourseOfferingBySemesterView(this.coursePlanner), BorderLayout.CENTER);
 		
 		return jPanel;
 	}
@@ -60,8 +60,8 @@ public class CoursePlannerView {
 	private Component createRightPanel() {
 		JPanel jPanel = new JPanel();
 		jPanel.setLayout(new BorderLayout());
-		jPanel.add(this.createStatsPanel(), BorderLayout.NORTH);
-		jPanel.add(this.createDetailsOfCourseOfferingPanel(), BorderLayout.CENTER);
+		jPanel.add(new StatisticsView(this.coursePlanner), BorderLayout.NORTH);
+		jPanel.add(new DetailsOfCourseOfferingView(this.coursePlanner), BorderLayout.CENTER);
 		
 		return jPanel;
 	}
