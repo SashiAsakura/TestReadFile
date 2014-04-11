@@ -29,6 +29,7 @@ import cmpt213.asn4.model.CoursePlanner;
 public class CourseListFilterView extends ABCCoursePlanerPanel{
 	private static final int THICKNESS = 3;
 	private List<String> departmentList;
+	
 	private JComboBox departmentComboBox;
 	private boolean includeUndergrad = false;
 	private boolean includeGrad = false;

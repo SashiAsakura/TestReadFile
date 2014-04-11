@@ -13,14 +13,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import cmpt213.asn4.model.Course;
 import cmpt213.asn4.model.CoursePlanner;
 
 public class CourseListView extends ABCCoursePlanerPanel {
 	private int verticalWrap;
-	private CoursePlannerView coursePlannerView;
 	private Vector<String> courses;
+	
+	private CoursePlannerView coursePlannerView;
 	private JList courseNameList;
 	private JPanel courseListPanel;
 
@@ -35,6 +38,20 @@ public class CourseListView extends ABCCoursePlanerPanel {
 		
 		this.courses = new Vector<String>();
 		this.courseNameList = new JList(this.courses);
+		
+		ListSelectionModel lsm = this.courseNameList.getSelectionModel();
+		lsm.addListSelectionListener(new ListSelectionListener() {
+			int selectedCourseIndex = -1;
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// Ignore the method firing twice when mouse clicked
+				if (!e.getValueIsAdjusting()) {
+					selectedCourseIndex = e.getLastIndex();
+					System.out.println(courses.get(selectedCourseIndex) + " selected");
+				}
+			}
+		});
 		
 		this.courseNameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.courseNameList.setSelectedIndex(0);
@@ -51,6 +68,10 @@ public class CourseListView extends ABCCoursePlanerPanel {
 		this.coursePlannerView = cpv;
 	}
 
+	/*
+	 * Public Method
+	 */
+	
 	public void updateCoursesInCourseListView(String selectedDepartment,
 			boolean includeUndergrad, boolean includeGrad) {
 		System.out.println("CourseListView:: updateCoursesInCourseListView() - includeUndergrad=" 
