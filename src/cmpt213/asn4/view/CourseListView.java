@@ -34,15 +34,12 @@ public class CourseListView extends ABCCoursePlanerPanel {
 		this.courseListPanel.setLayout(new BoxLayout(this.courseListPanel, BoxLayout.PAGE_AXIS));
 		
 		this.courses = new Vector<String>();
-		this.courses.add("CMPT 110");
-		this.courses.add("CMPT 120");
-		this.courses.add("CMPT 213");
-		this.courses.add("CMPT 225");
-		this.courses.add("CMPT 300");
 		this.courseNameList = new JList(this.courses);
 		
 		this.courseNameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.courseNameList.setSelectedIndex(0);
+		this.courseNameList.setVisibleRowCount(-1);
+		this.courseNameList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		JScrollPane courseListScrollPane = new JScrollPane(courseNameList);
 		this.courseListPanel.add(courseListScrollPane);
 	}
