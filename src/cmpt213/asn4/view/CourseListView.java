@@ -1,10 +1,12 @@
 package cmpt213.asn4.view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -12,9 +14,15 @@ import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
-public class CourseListView extends ABCCoursePlanerPanel {
+import cmpt213.asn4.model.Course;
+import cmpt213.asn4.model.CoursePlanner;
 
+public class CourseListView extends ABCCoursePlanerPanel {
 	private int verticalWrap;
+	private CoursePlannerView coursePlannerView;
+	private Vector<String> courses;
+	private JList courseNameList;
+	private JPanel courseListPanel;
 
 	public CourseListView(Object model) {
 		super(model, "Course List");
@@ -22,20 +30,58 @@ public class CourseListView extends ABCCoursePlanerPanel {
 	}
 
 	private void createCourseListPanel() {
-		JPanel courseListPanel = (JPanel) super.getContentPanel();
+		this.courseListPanel = (JPanel) super.getContentPanel();
+		this.courseListPanel.setLayout(new BoxLayout(this.courseListPanel, BoxLayout.PAGE_AXIS));
 		
-		Vector<String> courseList = new Vector<String>();
-		courseList.add("CMPT 110");
-		courseList.add("CMPT 120");
-		courseList.add("CMPT 213");
-		courseList.add("CMPT 225");
-		courseList.add("CMPT 300");
-		JList courseNameList = new JList(courseList);
-		courseNameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		courseNameList.setSelectedIndex(0);
-		courseNameList.setVisibleRowCount(3);
+		this.courses = new Vector<String>();
+		this.courses.add("CMPT 110");
+		this.courses.add("CMPT 120");
+		this.courses.add("CMPT 213");
+		this.courses.add("CMPT 225");
+		this.courses.add("CMPT 300");
+		this.courseNameList = new JList(this.courses);
+		
+		this.courseNameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.courseNameList.setSelectedIndex(0);
 		JScrollPane courseListScrollPane = new JScrollPane(courseNameList);
-		courseListPanel.add(courseListScrollPane);
+		this.courseListPanel.add(courseListScrollPane);
+	}
+	
+	/*
+	 * Public Setter
+	 */
+	public void setCoursePlannerView(CoursePlannerView cpv) {
+		this.coursePlannerView = cpv;
+	}
+
+	public void updateCoursesInCourseListView(String selectedDepartment,
+			boolean includeUndergrad, boolean includeGrad) {
+		System.out.println("CourseListView:: updateCoursesInCourseListView() - includeUndergrad=" 
+				+ includeUndergrad + ", includeGrad=" + includeGrad);
+		
+		CoursePlanner cp = (CoursePlanner) super.getModel();
+		HashMap<String, List<Course>> sortedDepartmentHM = cp.getSortedDepartmentHM();
+		this.courses = new Vector<String>();
+		
+		for (Course course : sortedDepartmentHM.get(selectedDepartment)) {
+			boolean addCourse = false;
+			if (includeUndergrad) {
+				if (course.getIsUndergrad()) {
+					addCourse = true;
+				}
+			}
+			if (includeGrad) {
+				if (!course.getIsUndergrad()) {
+					addCourse = true;
+				}
+			}
+			
+			if (addCourse) {
+				this.courses.add(course.getCourseName());
+//				System.out.println(course);
+			}
+		}
+		this.courseNameList.setListData(this.courses);
 	}
 	
 }

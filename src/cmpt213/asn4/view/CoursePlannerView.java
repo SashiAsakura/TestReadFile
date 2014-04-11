@@ -11,6 +11,8 @@ import cmpt213.asn4.model.CoursePlanner;
 
 public class CoursePlannerView {
 	private CoursePlanner coursePlanner;
+	private CourseListFilterView courseListFilterView;
+	private CourseListView courseListView;
 
 	public static void main(String[] args) {
 		CoursePlannerView cpv = new CoursePlannerView();
@@ -27,6 +29,18 @@ public class CoursePlannerView {
 		frame.pack();
 		frame.setVisible(true);	
 	}
+	
+	/*
+	 * Public Getter
+	 */
+	
+	public CourseListFilterView getCourseListFilterView() {
+		return this.courseListFilterView;
+	}
+	
+	public CourseListView getCourseListView() {
+		return this.courseListView;
+	}
 
 	private Component createCoursePlannerPanel() {
 		JPanel jPanel = new JPanel();
@@ -42,9 +56,12 @@ public class CoursePlannerView {
 		JPanel jPanel = new JPanel();
 		jPanel.setLayout(new BorderLayout());
 		
-//		jPanel.add(this.createCourseListFilterPanel(), BorderLayout.NORTH);
-		jPanel.add(new CourseListFilterView(this.coursePlanner), BorderLayout.NORTH);
-		jPanel.add(new CourseListView(this.coursePlanner), BorderLayout.CENTER);
+		this.courseListFilterView = new CourseListFilterView(this.coursePlanner);
+		this.courseListView = new CourseListView(this.coursePlanner);
+		this.courseListFilterView.setCoursePlannerView(this);
+		this.courseListView.setCoursePlannerView(this);
+		jPanel.add(this.courseListFilterView, BorderLayout.NORTH);
+		jPanel.add(this.courseListView, BorderLayout.CENTER);
 		
 		return jPanel;
 	}
@@ -65,7 +82,6 @@ public class CoursePlannerView {
 		
 		return jPanel;
 	}
-	
 
 	private Component createDetailsOfCourseOfferingPanel() {
 		return new JLabel("Details of Course Offering");
