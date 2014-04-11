@@ -21,7 +21,9 @@ import cmpt213.asn4.model.CoursePlanner;
 
 public class CourseListView extends ABCCoursePlanerPanel {
 	private int verticalWrap;
-	private Vector<String> courses;
+	private Vector<String> courseNames;
+	private List<Course> courses;
+	private Course selectedCourse;
 	
 	private CoursePlannerView coursePlannerView;
 	private JList courseNameList;
@@ -36,8 +38,8 @@ public class CourseListView extends ABCCoursePlanerPanel {
 		this.courseListPanel = (JPanel) super.getContentPanel();
 		this.courseListPanel.setLayout(new BoxLayout(this.courseListPanel, BoxLayout.PAGE_AXIS));
 		
-		this.courses = new Vector<String>();
-		this.courseNameList = new JList(this.courses);
+		this.courseNames = new Vector<String>();
+		this.courseNameList = new JList(this.courseNames);
 		
 		ListSelectionModel lsm = this.courseNameList.getSelectionModel();
 		lsm.addListSelectionListener(new ListSelectionListener() {
@@ -48,7 +50,11 @@ public class CourseListView extends ABCCoursePlanerPanel {
 				// Ignore the method firing twice when mouse clicked
 				if (!e.getValueIsAdjusting()) {
 					selectedCourseIndex = e.getLastIndex();
-					System.out.println(courses.get(selectedCourseIndex) + " selected");
+					if (courses.size() != 0) {
+						Course selectedCourse = courses.get(selectedCourseIndex);
+						System.out.println(selectedCourse.getCourseName() + " selected");
+						coursePlannerView.getCourseOfferingBySemester().updateGrid(selectedCourse);
+					}
 				}
 			}
 		});
@@ -79,7 +85,8 @@ public class CourseListView extends ABCCoursePlanerPanel {
 		
 		CoursePlanner cp = (CoursePlanner) super.getModel();
 		HashMap<String, List<Course>> sortedDepartmentHM = cp.getSortedDepartmentHM();
-		this.courses = new Vector<String>();
+		this.courseNames = new Vector<String>();
+		this.courses = new ArrayList<Course>();
 		
 		for (Course course : sortedDepartmentHM.get(selectedDepartment)) {
 			boolean addCourse = false;
@@ -95,11 +102,12 @@ public class CourseListView extends ABCCoursePlanerPanel {
 			}
 			
 			if (addCourse) {
-				this.courses.add(course.getCourseName());
+				this.courseNames.add(course.getCourseName());
+				this.courses.add(course);
 //				System.out.println(course);
 			}
 		}
-		this.courseNameList.setListData(this.courses);
+		this.courseNameList.setListData(this.courseNames);
 	}
 	
 }
