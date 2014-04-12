@@ -9,8 +9,8 @@ public class Course {
 	private String catalogNum;
 	private boolean isUndergradCourse = true;
 	private List<CourseOffering> courseOfferings;
-	private int oldestYearTaught;
-	private int latestYearTaught;
+	private int oldestYearTaught = 2020;
+	private int latestYearTaught = 0;
 	private int rangeOfYearsTaught;
 
 	/*
@@ -31,7 +31,6 @@ public class Course {
 	 * Public Getter
 	 */
 	
-	
 	public String getCourseName() {
 		return this.courseName;
 	}
@@ -51,9 +50,22 @@ public class Course {
 		return this.courseOfferings;
 	}
 	
+	public int getOldestYearTaught() {
+		return this.oldestYearTaught;
+	}
+	
+	public int getLatestYearTaught() {
+		return this.latestYearTaught;
+	}
+	
+	public int getRangeOfYearsTaught() {
+		return this.latestYearTaught - this.oldestYearTaught + 1;
+	}
+	
 	/*
 	 * Public Method
 	 */
+	
 	public void appendCourseOffering(CourseOffering courseOffering) {
 		if (courseOffering == null) {
 			return;
@@ -66,9 +78,20 @@ public class Course {
 		}
 		else {
 			this.courseOfferings.add(courseOffering);
+			updateOldestLatestYearTaught(courseOffering);
 		}
 	}
 	
+	public List<CourseOffering> getCoursesOfferredIn(Semester semester, int yearTaught) {
+		List<CourseOffering> cos = new ArrayList<CourseOffering>();
+		for (CourseOffering co : this.courseOfferings) {
+			if (co.getSemester().equals(semester) && co.getYear() == yearTaught) {
+				cos.add(co);
+			}
+		}
+		return cos;
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer stringCourseOffering = new StringBuffer();
@@ -78,10 +101,10 @@ public class Course {
 		return this.courseName + stringCourseOffering.toString();
 	}
 
-	
 	/*
 	 * Required method to properly search the same Course from list
 	 */
+
 	@Override
 	public boolean equals(Object that) {
 		if (that == null || this.getClass() != that.getClass()) {
@@ -93,4 +116,18 @@ public class Course {
 		return this.getSubject().equals(((Course) that).getSubject())
 				&& this.getCatalogNum().equals(((Course) that).getCatalogNum());
 	}
+	
+	/*
+	 * Private Method
+	 */
+	
+	private void updateOldestLatestYearTaught(CourseOffering courseOffering) {
+		if (courseOffering.getYear() < this.oldestYearTaught) {
+			this.oldestYearTaught = courseOffering.getYear();
+		}
+		if (courseOffering.getYear() > this.latestYearTaught) {
+			this.latestYearTaught = courseOffering.getYear();
+		}
+	}
+
 }

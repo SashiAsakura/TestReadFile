@@ -13,6 +13,9 @@ public class CoursePlannerView {
 	private CoursePlanner coursePlanner;
 	private CourseListFilterView courseListFilterView;
 	private CourseListView courseListView;
+	private CourseOfferingBySemesterView courseOfferingBySemesterView;	
+	private StatisticsView statisticsView;
+	private DetailsOfCourseOfferingView detailsOfCourseOfferingView;
 
 	public static void main(String[] args) {
 		CoursePlannerView cpv = new CoursePlannerView();
@@ -41,7 +44,23 @@ public class CoursePlannerView {
 	public CourseListView getCourseListView() {
 		return this.courseListView;
 	}
+	
+	public CourseOfferingBySemesterView getCourseOfferingBySemester() {
+		return this.courseOfferingBySemesterView;
+	}
+	
+	public StatisticsView getStatisticsView() {
+		return this.statisticsView;
+	}
+	
+	public DetailsOfCourseOfferingView getDetailsOfCourseOfferingView() {
+		return this.detailsOfCourseOfferingView;
+	}
 
+	/*
+	 * Private Method
+	 */
+	
 	private Component createCoursePlannerPanel() {
 		JPanel jPanel = new JPanel();
 		jPanel.setLayout(new BorderLayout());
@@ -69,7 +88,9 @@ public class CoursePlannerView {
 	private Component createCenterPanel() {
 		JPanel jPanel = new JPanel();
 		jPanel.setLayout(new BorderLayout());
-		jPanel.add(new CourseOfferingBySemesterView(this.coursePlanner), BorderLayout.CENTER);
+		this.courseOfferingBySemesterView = new CourseOfferingBySemesterView(this.coursePlanner);
+		this.courseOfferingBySemesterView.setCoursePlannerView(this);
+		jPanel.add(this.courseOfferingBySemesterView, BorderLayout.CENTER);
 		
 		return jPanel;
 	}
@@ -77,8 +98,10 @@ public class CoursePlannerView {
 	private Component createRightPanel() {
 		JPanel jPanel = new JPanel();
 		jPanel.setLayout(new BorderLayout());
-		jPanel.add(new StatisticsView(this.coursePlanner), BorderLayout.NORTH);
-		jPanel.add(new DetailsOfCourseOfferingView(this.coursePlanner), BorderLayout.CENTER);
+		this.statisticsView = new StatisticsView(this.coursePlanner);
+		this.detailsOfCourseOfferingView = new DetailsOfCourseOfferingView(this.coursePlanner);
+		jPanel.add(this.statisticsView, BorderLayout.NORTH);
+		jPanel.add(this.detailsOfCourseOfferingView, BorderLayout.CENTER);
 		
 		return jPanel;
 	}

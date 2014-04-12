@@ -20,7 +20,6 @@ import cmpt213.asn4.model.Course;
 import cmpt213.asn4.model.CoursePlanner;
 
 public class CourseListView extends ABCCoursePlanerPanel {
-	private int verticalWrap;
 	private Vector<String> courseNames;
 	private List<Course> courses;
 	private Course selectedCourse;

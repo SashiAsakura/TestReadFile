@@ -35,9 +35,6 @@ public class CourseListFilterView extends ABCCoursePlanerPanel{
 	private boolean includeGrad = false;
 	private CoursePlannerView coursePlannerView;
 	
-	public static void main(String[] args) {
-	}
-	
 	/*
 	 * Constructor
 	 */

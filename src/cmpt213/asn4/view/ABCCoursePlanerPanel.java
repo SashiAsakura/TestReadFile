@@ -17,7 +17,6 @@ public abstract class ABCCoursePlanerPanel extends JPanel{
 	private Dimension preferredSize;
 	private Component titlePanel;
 	private Component contentPanel;
-	
 
 	/*
 	 * Constructors
@@ -67,8 +66,6 @@ public abstract class ABCCoursePlanerPanel extends JPanel{
 //		panel.setBackground(Color.WHITE);
 		return panel;
 	}
-	
-
 	
 	/*
 	 * Public Method
