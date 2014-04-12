@@ -28,7 +28,6 @@ public class DetailsOfCourseOfferingView extends ABCCoursePlanerPanel{
 	private JLabel instructorsLabel;
 	private JLabel sectionTypeLabel;
 	private JLabel enrollmentLabel;
-	private JPanel sectionTypePanel;
 	private JPanel valuesPanel;
 
 	/*

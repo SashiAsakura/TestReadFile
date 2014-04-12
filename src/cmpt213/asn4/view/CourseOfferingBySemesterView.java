@@ -25,6 +25,7 @@ import cmpt213.asn4.model.Semester;
  * @author Hisashi
  *
  */
+
 public class CourseOfferingBySemesterView extends ABCCoursePlanerPanel {
 	private final int NUM_GRID_COLS = 4;
 	private CoursePlannerView coursePlannerView;
@@ -131,6 +132,8 @@ public class CourseOfferingBySemesterView extends ABCCoursePlanerPanel {
 
 	private void createCourseButton(JPanel grid, final CourseOffering courseOffering) {
 		JButton button = new JButton(courseOffering.getCourseName() + " - " + courseOffering.getCampusLocation());
+		button.setPreferredSize(new Dimension(grid.getWidth(), 40));
+		
 		button.addActionListener(new ActionListener() {
 			
 			@Override

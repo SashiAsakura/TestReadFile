@@ -2,6 +2,7 @@ package cmpt213.asn4.view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,6 +34,7 @@ public class CoursePlannerView {
 		this.coursePlanner = new CoursePlanner();
 		
 		JFrame frame = new JFrame("FAS Course Planner");
+		frame.setPreferredSize(new Dimension(800, 550));
 		frame.add(this.createCoursePlannerPanel());
 		
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);

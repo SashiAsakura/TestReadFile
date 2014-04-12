@@ -63,7 +63,6 @@ public abstract class ABCCoursePlanerPanel extends JPanel{
 	private Component createContentPanel() {
 		JPanel panel = new JPanel();
 		panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.BLACK, Color.GRAY));
-//		panel.setBackground(Color.WHITE);
 		return panel;
 	}
 	
@@ -80,7 +79,12 @@ public abstract class ABCCoursePlanerPanel extends JPanel{
 //	}
 
 	@Override
-	public Dimension getPreferredSize() {
-		return new Dimension(230, 130);
+//	public Dimension getPreferredSize() {
+//		return new Dimension(230, 130);
+//	}
+	
+	public void setPreferredSize(Dimension preferredSize) {
+//		this.contentPanel = new ?JPanel();
+		this.contentPanel.setPreferredSize(preferredSize);
 	}
 }

@@ -16,6 +16,8 @@ public class Course {
 	private int oldestYearTaught = 2020;
 	private int latestYearTaught = 0;
 	private int rangeOfYearsTaught;
+	private int[] countsBySemester;
+	private int[] countsByCampus;
 
 	/*
 	 * Constructor
@@ -94,6 +96,56 @@ public class Course {
 			}
 		}
 		return cos;
+	}
+	
+	/*
+	 * Return number of times this course has been offered in
+	 * various semesters. Array is of size 3.
+	 * Array content is [springCounts, summerCounts, fallCounts]
+	 */
+	public int[] getNumTimesOfferedBySemester() {
+		this.countsBySemester = new int[this.courseOfferings.size()];
+		int count = 0;
+		
+		for (CourseOffering co : this.courseOfferings) {
+			if (co.getSemester().equals(Semester.Spring)) {
+				countsBySemester[count++] = 0; 
+			}
+			else if (co.getSemester().equals(Semester.Summer)) {
+				countsBySemester[count++] = 1; 
+			}
+			else if (co.getSemester().equals(Semester.Fall)) {
+				countsBySemester[count++] = 2; 
+			}
+		}
+		
+		return this.countsBySemester;
+	}
+	
+	/*
+	 * Return number of times this course has been offered in
+	 * various campuses. Array is of size 4.
+	 * Array content is [BurnabyCounts, SurreyCounts, VancouverCounts, OthersCounts]
+	 */
+	public int[] getNumTimesOfferedByCampus() {
+		this.countsByCampus = new int[this.courseOfferings.size()];
+		int count = 0;
+		
+		for (CourseOffering co : this.courseOfferings) {
+			if (co.getCampusLocation().equals(CampusLocation.Burnaby)) {
+				countsByCampus[count++] = 0; 
+			}
+			else if (co.getCampusLocation().equals(CampusLocation.Surrey)) {
+				countsByCampus[count++] = 1; 
+			}
+			else if (co.getCampusLocation().equals(CampusLocation.Vancouver)) {
+				countsByCampus[count++] = 2; 
+			}
+			else {
+				countsByCampus[count++] = 3; 
+			}
+		}
+		return this.countsByCampus;
 	}
 
 	@Override

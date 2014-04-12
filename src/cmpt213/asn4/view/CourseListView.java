@@ -28,7 +28,6 @@ import cmpt213.asn4.model.CoursePlanner;
 public class CourseListView extends ABCCoursePlanerPanel {
 	private Vector<String> courseNames;
 	private List<Course> courses;
-	private Course selectedCourse;
 	
 	private CoursePlannerView coursePlannerView;
 	private JList courseNameList;
@@ -59,6 +58,7 @@ public class CourseListView extends ABCCoursePlanerPanel {
 						Course selectedCourse = courses.get(selectedCourseIndex);
 						System.out.println(selectedCourse.getCourseName() + " selected");
 						coursePlannerView.getCourseOfferingBySemester().updateGrid(selectedCourse);
+						coursePlannerView.getStatisticsView().updateHistograms(selectedCourse);
 					}
 				}
 			}
