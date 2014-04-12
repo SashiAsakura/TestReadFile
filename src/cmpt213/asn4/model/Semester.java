@@ -1,5 +1,10 @@
 package cmpt213.asn4.model;
 
+/**
+ * Enum class for semester.
+ * @author Hisashi
+ *
+ */
 public enum Semester {
 	Spring, Summer, Fall, Others;
 

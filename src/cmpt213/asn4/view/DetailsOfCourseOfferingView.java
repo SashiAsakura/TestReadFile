@@ -15,6 +15,12 @@ import javax.swing.border.Border;
 
 import cmpt213.asn4.model.CourseOffering;
 
+/**
+ * Responsible for creating and updating details of course on bottom right
+ * based on the course button clicked by user from course grid in the middle.
+ * @author Hisashi
+ *
+ */
 public class DetailsOfCourseOfferingView extends ABCCoursePlanerPanel{
 	private JLabel courseLabel;
 	private JLabel locationLabel;

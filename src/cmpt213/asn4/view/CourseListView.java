@@ -19,6 +19,12 @@ import javax.swing.event.ListSelectionListener;
 import cmpt213.asn4.model.Course;
 import cmpt213.asn4.model.CoursePlanner;
 
+/**
+ * Responsible for creating and updating course list on bottom left 
+ * based on department selected by combobox.
+ * @author Hisashi
+ *
+ */
 public class CourseListView extends ABCCoursePlanerPanel {
 	private Vector<String> courseNames;
 	private List<Course> courses;

@@ -19,6 +19,12 @@ import cmpt213.asn4.model.Course;
 import cmpt213.asn4.model.CourseOffering;
 import cmpt213.asn4.model.Semester;
 
+/**
+ * Responsible for creating and updating course grid in the middle
+ * of the window.
+ * @author Hisashi
+ *
+ */
 public class CourseOfferingBySemesterView extends ABCCoursePlanerPanel {
 	private final int NUM_GRID_COLS = 4;
 	private CoursePlannerView coursePlannerView;

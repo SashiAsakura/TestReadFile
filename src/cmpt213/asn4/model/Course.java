@@ -2,7 +2,11 @@ package cmpt213.asn4.model;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Class holds information about Course.
+ * @author Hisashi
+ *
+ */
 public class Course {
 	private String courseName;
 	private String subject;

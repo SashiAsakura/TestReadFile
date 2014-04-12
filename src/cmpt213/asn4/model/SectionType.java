@@ -1,5 +1,10 @@
 package cmpt213.asn4.model;
 
+/**
+ * Enum class for section type.
+ * @author Hisashi
+ *
+ */
 public enum SectionType {
 	LEC, TUT, OPL, SEC, OTHERS;
 

@@ -9,6 +9,13 @@ import javax.swing.JPanel;
 
 import cmpt213.asn4.model.CoursePlanner;
 
+/***
+ * Responsible for creating a window for course planner view.
+ * This displays ComboBox for departments, list of courses of selected department,
+ * course grid, stats, and course details.
+ * @author Hisashi
+ *
+ */
 public class CoursePlannerView {
 	private CoursePlanner coursePlanner;
 	private CourseListFilterView courseListFilterView;

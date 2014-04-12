@@ -3,7 +3,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-
+/**
+ * Class holds information about course offerings: semester,
+ * enrolled size, enrollment capacity, section type, etc.
+ * @author Hisashi
+ *
+ */
 public class CourseOffering implements Comparator<CourseOffering>{
 	private String courseName;
 	private int semesterCode;

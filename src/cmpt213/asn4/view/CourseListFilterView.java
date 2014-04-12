@@ -26,6 +26,13 @@ import javax.swing.JPanel;
 import cmpt213.asn4.model.Course;
 import cmpt213.asn4.model.CoursePlanner;
 
+/**
+ * Responsible for creating department selecting combobox, checkbox 
+ * for undergrad and grad, and update course list button on top left.
+ * It will update course list on bottom left once button is clicked.
+ * @author Hisashi
+ *
+ */
 public class CourseListFilterView extends ABCCoursePlanerPanel{
 	private static final int THICKNESS = 3;
 	private List<String> departmentList;

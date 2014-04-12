@@ -10,7 +10,12 @@ import java.util.Scanner;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
-
+/**
+ * Responsible for reading input file and process data and create
+ * list of Department objects that contain list of Course objects.
+ * @author Hisashi
+ *
+ */
 public class CoursePlanner {
 	public String sourceFile = "data/course_data_2014.csv.txt";
 	public String ToFile = "data/output_dump.txt";
